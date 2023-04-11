@@ -1,32 +1,29 @@
-const mongodb=require('mongodb');
-const { get } = require('../routes/admin');
-const MongoClient =mongodb.MongoClient;
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 
 let _db;
-const mongoConnect=callback =>{
-    MongoClient.connect('mongodb+srv://reddyprashanth337:9949351872@cluster0.ef2guew.mongodb.net/shop?retryWrites=true&w=majority')
 
-    .then(client =>{
-        console.log('connected')
-        _db=client.db()
-        callback(client)
+const mongoConnect = callback => {
+  MongoClient.connect(
+    'mongodb+srv://reddyprashanth337:9949351872@cluster1.zacx0li.mongodb.net/shop?retryWrites=true&w=majority'
+  )
+    .then(client => {
+      console.log('Connected!');
+      _db = client.db();
+      callback();
     })
-    
-    .catch(err =>{
-        console.log(err)
-        throw err;
-    })
-    
-}
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+};
 
-const getDb=() =>{
-    if(_db){
-        return _cb
-    }
-    throw 'No data found';
-}
+const getDb = () => {
+  if (_db) {
+    return _db;
+  }
+  throw 'No database found!';
+};
 
-exports.mongoConnect=mongoConnect;
-exports.getDb=getDb
-
-
+exports.mongoConnect = mongoConnect;
+exports.getDb = getDb;
